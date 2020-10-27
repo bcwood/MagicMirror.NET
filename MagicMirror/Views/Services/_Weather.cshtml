@@ -1,0 +1,17 @@
+﻿@model Weather
+
+<div class="weather">
+	<div class="current">
+		<span class="temp">@Model.Current.Temp.ToString("F1")&deg;F</span>
+		<img class="icon" width="80" src="@Model.Current.WeatherConditions[0].IconLargeUrl" />
+	</div>
+	<div class="forecast">
+		@foreach (var forecast in Model.Forecast)
+		{
+			<div class="day">
+				<img class="icon" width="40" src="@forecast.WeatherConditions[0].IconUrl" />
+				<div class="temp">@Convert.ToInt32(forecast.Temp.Day)&deg;F</div>
+			</div>
+		}
+	</div>
+</div>
