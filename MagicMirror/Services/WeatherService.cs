@@ -12,17 +12,19 @@ namespace MagicMirror.Services
         private string apiKey;
         private string latitude;
         private string longitude;
+        private string units;
 
         public WeatherService(IConfiguration config)
         {
             apiKey = config["Weather:ApiKey"];
             latitude = config["Weather:Latitude"];
             longitude = config["Weather:Longitude"];
+            units = config["Weather:Units"];
         }
 
         public async Task<Weather> GetWeatherAsync()
         {
-            string endpointUrl = $"{BASE_URL}/onecall?lat={latitude}&lon={longitude}&appid={apiKey}&units=imperial&exclude=minutely,hourly";
+            string endpointUrl = $"{BASE_URL}/onecall?lat={latitude}&lon={longitude}&units={units}&exclude=minutely,hourly&appid={apiKey}";
             return await ApiClient.GetAsync<Weather>(endpointUrl);
         }
     }
