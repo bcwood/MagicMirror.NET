@@ -2,15 +2,16 @@
 
 <div class="weather">
 	<div class="current">
-		<span class="temp">@Model.Current.Temp.ToString("F1")&deg;F</span>
-		<img class="icon" width="80" src="@Model.Current.WeatherConditions[0].IconLargeUrl" />
+		<span class="temp">@Model.Current.Temp.ToString("F1")&deg;</span>
+		<img class="icon" width="100" src="@Model.Current.WeatherConditions[0].IconLargeUrl" />
 	</div>
 	<div class="forecast">
-		@foreach (var forecast in Model.Forecast)
+		@for (int i = 0; i < Model.Forecast.Count; i++)
 		{
 			<div class="day">
-				<img class="icon" width="40" src="@forecast.WeatherConditions[0].IconUrl" />
-				<div class="temp">@Convert.ToInt32(forecast.Temp.Day)&deg;F</div>
+				<div class="dayname">@DateTime.Now.AddDays(i + 1).ToString("ddd")</div>
+				<img class="icon" width="50" src="@Model.Forecast[i].WeatherConditions[0].IconUrl" />
+				<div class="temp">@Convert.ToInt32(Model.Forecast[i].Temp.Day)&deg;</div>
 			</div>
 		}
 	</div>
