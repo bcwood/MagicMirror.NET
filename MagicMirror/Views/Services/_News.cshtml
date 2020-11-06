@@ -1,0 +1,14 @@
+﻿@model List<RssItem>
+
+<div class="news">
+	<ul>
+		@foreach (var item in Model)
+		{
+			<li>
+				<i class="fas fa-newspaper"></i>
+				<span class="title">@item.Title</span>
+				<span class="meta"> (@item.LinkDomain, @item.RelativeDate)</span>
+			</li>
+		}
+	</ul>
+</div>

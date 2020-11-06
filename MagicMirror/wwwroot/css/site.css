@@ -69,3 +69,22 @@ body {
 		.weather .forecast .day {
 			text-align: center;
 		}
+
+.news {
+}
+
+	.news ul {
+		list-style-type: none;
+		position: absolute;
+		bottom: 10px;
+		left: 15px;
+	}
+
+	.news li {
+		padding-bottom: 8px;
+	}
+
+	.news .meta {
+		font-size: 0.9em;
+		font-style: italic;
+	}

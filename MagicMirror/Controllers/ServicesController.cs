@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MagicMirror.Models;
 using MagicMirror.Services;
+using System;
 
 namespace MagicMirror.Controllers
 {
@@ -29,6 +30,17 @@ namespace MagicMirror.Controllers
             // skip the first day in the forecast (today), and only take 5 days
             weather.Forecast = weather.Forecast.Skip(1).Take(5).ToList();
             return PartialView("_Weather", weather);
+        }
+
+        public IActionResult News()
+        {
+            int itemsToDisplay = Convert.ToInt32(configuration["News:ItemsToDisplay"]);
+            string[] feedUrls = configuration["News:FeedUrls"].Split(',');
+
+            var service = new RssService(feedUrls, itemsToDisplay);
+            var items = service.GetRssFeedItems();
+
+            return PartialView("_News", items);
         }
     }
 }
