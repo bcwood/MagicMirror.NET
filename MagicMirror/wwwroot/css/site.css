@@ -55,11 +55,6 @@ body {
 			font-size: 3.8em;
 		}
 
-		.weather .current .icon {
-			position: relative;
-			top: 18px;
-		}
-
 	.weather .forecast {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
@@ -68,6 +63,11 @@ body {
 
 		.weather .forecast .day {
 			text-align: center;
+		}
+
+		.weather .forecast .far,
+		.weather .forecast .fas {
+			margin: 8px 0;
 		}
 
 .news {
