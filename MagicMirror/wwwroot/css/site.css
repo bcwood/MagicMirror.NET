@@ -24,6 +24,13 @@ body {
 		padding-top: 10px;
 	}
 
+		.grid .gridCell.col-2 {
+			grid-column: span 2;
+		}
+		.grid .gridCell.col-3 {
+			grid-column: span 3;
+		}
+
 .timeAndDate {
 	margin-top: 24px;
 	text-align: center;
