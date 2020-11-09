@@ -42,5 +42,15 @@ namespace MagicMirror.Controllers
 
             return PartialView("_News", items);
         }
+
+        public IActionResult Rss(string src)
+        {
+            int itemsToDisplay = Convert.ToInt32(configuration["News:ItemsToDisplay"]);
+
+            var service = new RssService(src, itemsToDisplay);
+            var feed = service.GetRssFeed();
+
+            return PartialView("_Rss", feed);
+        }
     }
 }

@@ -1,0 +1,15 @@
+﻿@model RssFeed
+
+<div class="news">
+	<h1>@Model.Title</h1>
+	<ul>
+		@foreach (var item in Model.Items)
+		{
+			<li>
+				<i class="fas fa-newspaper"></i>
+				<span class="title">@item.Title</span>
+				<span class="meta"> (@item.RelativeDate)</span>
+			</li>
+		}
+	</ul>
+</div>

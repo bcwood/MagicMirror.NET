@@ -2,20 +2,32 @@
 	ViewData["Title"] = "Home";
 }
 
-<div class="grid">
-	<div class="gridCell partialContents" data-url="/services/timeanddate" data-refresh="1">
-		Loading...
-	</div>
-	<div class="gridCell"></div>
-	<div class="gridCell partialContents" data-url="/services/weather" data-refresh="60">
-		Loading...
-	</div>
+	<div class="grid">
+		@* Row 1 *@
+		<div class="gridCell partialContents" data-url="/services/timeanddate" data-refresh="1">
+			Loading...
+		</div>
+		<div class="gridCell"></div>
+		<div class="gridCell partialContents" data-url="/services/weather" data-refresh="900">
+			Loading...
+		</div>
 
-	<div class="gridCell"></div>
-	<div class="gridCell"></div>
-	<div class="gridCell"></div>
-	
-	<div class="gridCell col-3 partialContents" data-url="/services/news" data-refresh="60">
-		Loading...
-	</div>	
-</div>
+		@* Row 2 *@
+		<div class="gridCell"></div>
+		<div class="gridCell"></div>
+		<div class="gridCell"></div>
+
+		@* Row 3 *@
+		<div class="gridCell partialContents" data-refresh="300"
+			 data-url="/services/rss?src=https://www.theguardian.com/us/rss">
+			Loading...
+		</div>
+		<div class="gridCell partialContents" data-refresh="300"
+			 data-url="/services/rss?src=https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml">
+			Loading...
+		</div>
+		<div class="gridCell partialContents" data-refresh="300"
+			 data-url="/services/rss?src=https://feeds.npr.org/1001/rss.xml">
+			Loading...
+		</div>
+	</div>

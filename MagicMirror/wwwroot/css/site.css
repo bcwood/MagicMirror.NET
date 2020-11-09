@@ -27,6 +27,7 @@ body {
 		.grid .gridCell.col-2 {
 			grid-column: span 2;
 		}
+
 		.grid .gridCell.col-3 {
 			grid-column: span 3;
 		}
@@ -58,7 +59,7 @@ body {
 	.weather .forecast {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
-		margin-top: 10px;
+		margin-top: 15px;
 	}
 
 		.weather .forecast .day {
@@ -75,9 +76,7 @@ body {
 
 	.news ul {
 		list-style-type: none;
-		position: absolute;
-		bottom: 10px;
-		left: 15px;
+		margin: 10px;
 	}
 
 	.news li {

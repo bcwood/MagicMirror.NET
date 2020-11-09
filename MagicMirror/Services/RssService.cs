@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Xml;
@@ -10,6 +11,12 @@ namespace MagicMirror.Services
     {
         private string[] FeedUrls;
         private int MaxItems = 5;
+
+        public RssService(string feedUrl, int maxItems)
+        {
+            FeedUrls = new string[] { feedUrl };
+            MaxItems = maxItems;
+        }
 
         public RssService(string[] feedUrls, int maxItems)
         {
@@ -23,8 +30,7 @@ namespace MagicMirror.Services
 
             foreach (string url in FeedUrls)
             {
-                using var reader = XmlReader.Create(url);
-                var feed = SyndicationFeed.Load(reader);
+                var feed = GetSyndicationFeed(url);
 
                 foreach (var item in feed.Items.Take(MaxItems))
                 {
@@ -41,6 +47,41 @@ namespace MagicMirror.Services
             return items.OrderByDescending(i => i.PublishDate.Ticks)
                         .Take(MaxItems)
                         .ToList();
+        }
+
+        public RssFeed GetRssFeed()
+        {
+            var rssFeed = new RssFeed();
+
+            var synFeed = GetSyndicationFeed(FeedUrls[0]);
+            rssFeed.Title = synFeed.Title.Text;
+            rssFeed.Items = GetSyndicationFeedItems(synFeed);
+
+            return rssFeed;
+        }
+
+        private SyndicationFeed GetSyndicationFeed(string url)
+        {
+            var reader = XmlReader.Create(url);
+            return SyndicationFeed.Load(reader);
+        }
+
+        private List<RssItem> GetSyndicationFeedItems(SyndicationFeed feed)
+        {
+            var items = new List<RssItem>();
+
+            foreach (var item in feed.Items.Take(MaxItems))
+            {
+                var rssItem = new RssItem();
+                rssItem.Title = item.Title.Text;
+                rssItem.Summary = item.Summary.Text;
+                rssItem.Link = item.Links.FirstOrDefault()?.Uri;
+                rssItem.PublishDate = item.PublishDate.ToLocalTime();
+
+                items.Add(rssItem);
+            }
+
+            return items;
         }
     }
 }
