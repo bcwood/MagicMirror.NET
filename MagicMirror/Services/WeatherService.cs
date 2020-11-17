@@ -24,7 +24,7 @@ namespace MagicMirror.Services
 
         public async Task<Weather> GetWeatherAsync()
         {
-            string endpointUrl = $"{BASE_URL}/onecall?lat={latitude}&lon={longitude}&units={units}&exclude=minutely,hourly&appid={apiKey}";
+            string endpointUrl = $"{BASE_URL}/onecall?lat={latitude}&lon={longitude}&units={units}&exclude=minutely,hourly,alerts&appid={apiKey}";
             return await ApiClient.GetAsync<Weather>(endpointUrl);
         }
     }

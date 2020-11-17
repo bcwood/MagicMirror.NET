@@ -10,9 +10,6 @@ namespace MagicMirror.Models
 
         [JsonProperty("daily")]
         public IList<ForecastWeather> Forecast { get; set; }
-
-        [JsonProperty("alerts")]
-        public IList<WeatherAlert> Alerts { get; set; }
     }
 
     public class WeatherBase
@@ -159,23 +156,5 @@ namespace MagicMirror.Models
 
         [JsonProperty("night")]
         public double Night { get; set; }        
-    }
-
-    public class WeatherAlert
-    {
-        [JsonProperty("sender_name")]
-        public string Sender { get; set; }
-
-        [JsonProperty("event")]
-        public string Event { get; set; }
-
-        [JsonProperty("start")]
-        public int Start { get; set; }
-
-        [JsonProperty("end")]
-        public int End { get; set; }
-
-        [JsonProperty("description")]
-        public string Description { get; set; }
     }
 }

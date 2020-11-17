@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MagicMirror.Models;
 using MagicMirror.Services;
-using System;
 
 namespace MagicMirror.Controllers
 {
