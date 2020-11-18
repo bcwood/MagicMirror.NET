@@ -49,6 +49,7 @@ body {
 }
 
 	.weather .current {
+		margin-top: 20px;
 		text-align: center;
 	}
 
