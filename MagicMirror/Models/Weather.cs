@@ -81,14 +81,9 @@ namespace MagicMirror.Models
         [JsonProperty("icon")]
         public string Icon { get; set; }
 
-        public string IconUrl => $"/img/weather/{Icon}.png";
-        public string IconLargeUrl => $"/img/weather/{Icon}.png";
-
         // We need to map the weather condition codes used by OpenWeatherMap, to 
-        // the CSS class names used by our weather icons.
-        // More info:
-        //   https://openweathermap.org/weather-conditions
-        //   https://fontawesome.com/icons?d=gallery&c=weather&m=free
+        // the CSS class names used by FontAwesome.
+        // More info: https://fontawesome.com/icons?d=gallery&c=weather&m=free
         public string IconCssClass => ConditionIcons[Icon];
 
         private Dictionary<string, string> ConditionIcons = new Dictionary<string, string>
@@ -112,29 +107,6 @@ namespace MagicMirror.Models
                 { "50d", "fas fa-smog" },
                 { "50n", "fas fa-smog" },
             };
-
-        //   https://erikflowers.github.io/weather-icons/
-        //private Dictionary<string, string> ConditionIcons = new Dictionary<string, string>
-        //    {
-        //        { "01d", "wi wi-day-sunny" },
-        //        { "01n", "wi wi-night-clear" },
-        //        { "02d", "wi wi-day-sunny-overcast" },
-        //        { "02n", "wi wi-night-alt-partly-cloudy" },
-        //        { "03d", "wi wi-cloud" },
-        //        { "03n", "wi wi-cloud" },
-        //        { "04d", "wi wi-day-cloudy" },
-        //        { "04n", "wi wi-night-alt-cloudy" },
-        //        { "09d", "wi wi-raindrops" },
-        //        { "09n", "wi wi-raindrops" },
-        //        { "10d", "wi wi-raindrops" },
-        //        { "10n", "wi wi-raindrops" },
-        //        { "11d", "wi wi-thunderstorm" },
-        //        { "11n", "wi wi-thunderstorm" },
-        //        { "13d", "wi wi-snowflake-cold" },
-        //        { "13n", "wi wi-snowflake-cold" },
-        //        { "50d", "wi wi-fog" },
-        //        { "50n", "wi wi-fog" },
-        //    };
     }
 
     public class TempRange
