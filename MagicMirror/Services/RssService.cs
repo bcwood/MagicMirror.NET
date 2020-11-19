@@ -49,7 +49,7 @@ namespace MagicMirror.Services
                 items.Add(rssItem);
             }
 
-            return items;
+            return items.OrderByDescending(i => i.PublishDate).ToList();
         }
     }
 }
