@@ -1,4 +1,4 @@
-﻿* {
+* {
 	margin: 0;
 	padding: 0;
 }
@@ -7,7 +7,7 @@ body {
 	background-color: #333;
 	color: #fff;
 	font-family: 'Roboto', sans-serif;
-	font-size: 1.1em;
+	font-size: 1.0em;
 }
 
 .grid {
@@ -20,8 +20,7 @@ body {
 }
 
 	.grid .gridCell {
-		border: 1px solid #ccc;
-		padding-top: 10px;
+		margin: 10px;
 	}
 
 		.grid .gridCell.col-2 {
@@ -32,13 +31,25 @@ body {
 			grid-column: span 3;
 		}
 
+		.grid .gridCell.bottom {
+			align-self: end;
+		}
+
+ul {
+		list-style-type: none;
+		margin: 10px;
+	}
+
+	ul li {
+		padding-bottom: 10px;
+	}
+
 .timeAndDate {
 	margin-top: 24px;
-	text-align: center;
 }
 
 	.timeAndDate .time {
-		font-size: 3.5em;
+		font-size: 3.8em;
 	}
 
 	.timeAndDate .date {
@@ -46,6 +57,7 @@ body {
 	}
 
 .weather {
+	font-size: 1.1em;
 }
 
 	.weather .current {
@@ -75,36 +87,10 @@ body {
 .rss {
 }
 
-	.rss ul {
-		list-style-type: none;
-		margin: 10px;
-	}
-
-	.rss li {
-		padding-bottom: 8px;
-	}
-
 	.rss .meta {
 		font-size: 0.9em;
 		font-style: italic;
 	}
 
 .calendar {
-}
-
-	.calendar .event {
-		margin: 10px;
-	}
-
-		.calendar .event .far,
-		.calendar .event .fas {
-			float: left;
-		}
-
-		.calendar .event .time {
-			margin-left: 20px;
-		}
-
-		.calendar .event .summary {
-			margin-left: 20px;
-		}
+}	
