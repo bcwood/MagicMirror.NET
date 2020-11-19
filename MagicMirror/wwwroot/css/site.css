@@ -88,3 +88,23 @@ body {
 		font-size: 0.9em;
 		font-style: italic;
 	}
+
+.calendar {
+}
+
+	.calendar .event {
+		margin: 10px;
+	}
+
+		.calendar .event .far,
+		.calendar .event .fas {
+			float: left;
+		}
+
+		.calendar .event .time {
+			margin-left: 20px;
+		}
+
+		.calendar .event .summary {
+			margin-left: 20px;
+		}

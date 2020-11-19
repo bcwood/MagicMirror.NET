@@ -1,0 +1,19 @@
+﻿@model List<CalendarItem>
+
+<div class="calendar">
+	@foreach (var item in Model)
+	{
+	<div class="event">
+		<i class="far fa-calendar-alt"></i>
+		@if (item.IsAllDay)
+		{
+			<div class="time">@item.StartDate.ToString("dddd MM/dd", null)</div>
+		}
+		else
+		{
+			<div class="time">@item.StartDate.ToString("dddd MM/dd h:mm tt", null)</div>
+		}
+		<div class="summary">@item.Title</div>
+	</div>
+	}
+</div>
