@@ -2,7 +2,7 @@
 
 <div class="weather">
 	<div class="current">
-		<span class="temp">@Model.Current.Temp.ToString("F1")&deg;</span>
+		<span class="temp">@Convert.ToInt32(Model.Current.Temp)&deg;</span>
 		<i class="@Model.Current.WeatherConditions[0].IconCssClass fa-4x"></i>
 	</div>
 	<div class="forecast">
