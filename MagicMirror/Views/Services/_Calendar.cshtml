@@ -1,19 +1,44 @@
-﻿@model List<CalendarItem>
+﻿@model Calendar
 
 <div class="calendar">
-	@foreach (var item in Model)
+
+	@if (Model.TodaysEvents.Any())
 	{
-	<div class="event">
-		<i class="far fa-calendar-alt"></i>
-		@if (item.IsAllDay)
-		{
-			<div class="time">@item.StartDate.ToString("dddd MM/dd", null)</div>
-		}
-		else
-		{
-			<div class="time">@item.StartDate.ToString("dddd MM/dd h:mm tt", null)</div>
-		}
-		<div class="summary">@item.Title</div>
-	</div>
+		@:Today
+		<ul>
+			@foreach (var item in Model.TodaysEvents)
+			{
+				<li>
+					<i class="far fa-calendar"></i>
+					@if (!item.IsAllDay)
+					{
+						<span class="time">@item.StartDate.ToString("h:mm tt")</span>
+					}
+					&mdash; <span class="summary">@item.Title</span>
+				</li>
+			}
+		</ul>
+	}
+
+	@if (Model.UpcomingEvents.Any())
+	{
+		@:Coming Up
+		<ul>
+			@foreach (var item in Model.UpcomingEvents)
+			{
+				<li>
+					<i class="far fa-calendar-alt"></i>
+					@if (item.IsAllDay)
+					{
+						<span class="time">@item.StartDate.ToString("dddd")</span>
+					}
+					else
+					{
+						<span class="time">@item.StartDate.ToString("dddd @ h:mm tt")</span>
+					}
+					&mdash; <span class="summary">@item.Title</span>
+				</li>
+			}
+		</ul>
 	}
 </div>

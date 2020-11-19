@@ -47,14 +47,14 @@ namespace MagicMirror.Controllers
         public IActionResult Calendar()
         {
             var service = new CalendarService(configuration);
-            var calendar = service.GetCalendarAsync().Result;
+            var ical = service.GetCalendarAsync().Result;
 
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now.AddDays(7);
 
             var events = new List<CalendarItem>();
 
-            foreach (var recurrence in calendar.RecurringItems)
+            foreach (var recurrence in ical.RecurringItems)
             {
                 foreach (var occurrence in recurrence.GetOccurrences(startDate, endDate))
                 {
@@ -75,9 +75,14 @@ namespace MagicMirror.Controllers
                 }
             }
 
-            events = events.OrderBy(e => e.StartDate).ToList();
+            var calendar = new Calendar();
+            calendar.TodaysEvents = events.Where(e => e.StartDate.Date == DateTime.Today)
+                                          .ToList();
+            calendar.UpcomingEvents = events.Where(e => e.StartDate.Date != DateTime.Today)
+                                            .OrderBy(e => e.StartDate)
+                                            .ToList();
 
-            return PartialView("_Calendar", events);
+            return PartialView("_Calendar", calendar);
         }
     }
 }
