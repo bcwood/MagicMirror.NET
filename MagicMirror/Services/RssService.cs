@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Xml;
@@ -9,51 +8,20 @@ namespace MagicMirror.Services
 {
     public class RssService
     {
-        private string[] FeedUrls;
-        private int MaxItems = 5;
+        private string Url;
+        private int MaxItems;
 
-        public RssService(string feedUrl, int maxItems)
+        public RssService(string url, int maxItems = 5)
         {
-            FeedUrls = new string[] { feedUrl };
+            Url = url;
             MaxItems = maxItems;
-        }
-
-        public RssService(string[] feedUrls, int maxItems)
-        {
-            FeedUrls = feedUrls;
-            MaxItems = maxItems;
-        }
-
-        public List<RssItem> GetRssFeedItems()
-        {
-            var items = new List<RssItem>();
-
-            foreach (string url in FeedUrls)
-            {
-                var feed = GetSyndicationFeed(url);
-
-                foreach (var item in feed.Items.Take(MaxItems))
-                {
-                    var rssItem = new RssItem();
-                    rssItem.Title = item.Title.Text;
-                    rssItem.Summary = item.Summary.Text;
-                    rssItem.Link = item.Links.FirstOrDefault()?.Uri;
-                    rssItem.PublishDate = item.PublishDate.ToLocalTime();
-
-                    items.Add(rssItem);
-                }
-            }
-
-            return items.OrderByDescending(i => i.PublishDate.Ticks)
-                        .Take(MaxItems)
-                        .ToList();
         }
 
         public RssFeed GetRssFeed()
         {
             var rssFeed = new RssFeed();
 
-            var synFeed = GetSyndicationFeed(FeedUrls[0]);
+            var synFeed = GetSyndicationFeed(Url);
             rssFeed.Title = synFeed.Title.Text;
             rssFeed.Items = GetSyndicationFeedItems(synFeed);
 

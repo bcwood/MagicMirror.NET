@@ -34,17 +34,6 @@ namespace MagicMirror.Controllers
             return PartialView("_Weather", weather);
         }
 
-        public IActionResult News()
-        {
-            int itemsToDisplay = Convert.ToInt32(configuration["News:ItemsToDisplay"]);
-            string[] feedUrls = configuration["News:FeedUrls"].Split(',');
-
-            var service = new RssService(feedUrls, itemsToDisplay);
-            var items = service.GetRssFeedItems();
-
-            return PartialView("_News", items);
-        }
-
         public IActionResult Rss(string src)
         {
             int itemsToDisplay = Convert.ToInt32(configuration["News:ItemsToDisplay"]);

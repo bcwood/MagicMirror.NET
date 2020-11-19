@@ -72,19 +72,19 @@ body {
 			margin: 8px 0;
 		}
 
-.news {
+.rss {
 }
 
-	.news ul {
+	.rss ul {
 		list-style-type: none;
 		margin: 10px;
 	}
 
-	.news li {
+	.rss li {
 		padding-bottom: 8px;
 	}
 
-	.news .meta {
+	.rss .meta {
 		font-size: 0.9em;
 		font-style: italic;
 	}
