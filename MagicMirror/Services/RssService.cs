@@ -11,7 +11,7 @@ namespace MagicMirror.Services
         private string Url;
         private int MaxItems;
 
-        public RssService(string url, int maxItems = 5)
+        public RssService(string url, int maxItems)
         {
             Url = url;
             MaxItems = maxItems;
