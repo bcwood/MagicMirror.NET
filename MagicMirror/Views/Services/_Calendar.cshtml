@@ -1,11 +1,10 @@
 ﻿@model Calendar
 
 <div class="calendar">
-
-	@if (Model.TodaysEvents.Any())
-	{
-		@:Today
-		<ul>
+	Today
+	<ul>
+		@if (Model.TodaysEvents.Any())
+		{
 			@foreach (var item in Model.TodaysEvents)
 			{
 				<li>
@@ -17,8 +16,13 @@
 					&mdash; <span class="summary">@item.Title</span>
 				</li>
 			}
-		</ul>
-	}
+
+		}
+		else
+		{
+			<li><em>Nothing else today</em></li>
+		}
+	</ul>
 
 	@if (Model.UpcomingEvents.Any())
 	{
