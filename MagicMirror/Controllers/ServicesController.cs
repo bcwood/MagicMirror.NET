@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using MagicMirror.Models;
 using MagicMirror.Services;
 using Ical.Net.CalendarComponents;
+using System.Threading.Tasks;
 
 namespace MagicMirror.Controllers
 {
@@ -27,7 +28,7 @@ namespace MagicMirror.Controllers
             return PartialView("_TimeAndDate", timeAndDate);
         }
 
-        public IActionResult Weather()
+        public async Task<IActionResult> Weather()
         {
             string apiKey = _configuration["Weather:ApiKey"];
             string units = _configuration["Weather:Units"];
@@ -37,7 +38,7 @@ namespace MagicMirror.Controllers
             string latitude = _configuration["Weather:Latitude"];
             string longitude = _configuration["Weather:Longitude"];
 
-            var weather = service.GetWeatherAsync(latitude, longitude).Result;
+            var weather = await service.GetWeatherAsync(latitude, longitude);
             // skip the first day in the forecast (today), and only take 5 days
             weather.Forecast = weather.Forecast.Skip(1).Take(5).ToList();
             return PartialView("_Weather", weather);
@@ -51,7 +52,7 @@ namespace MagicMirror.Controllers
             return PartialView("_Rss", feed);
         }
 
-        public IActionResult Calendar()
+        public async Task<IActionResult> Calendar()
         {
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now.AddDays(7);
@@ -63,7 +64,7 @@ namespace MagicMirror.Controllers
 
             foreach (string url in calendarUrls)
             {
-                var calendar = service.GetCalendarAsync(url).Result;
+                var calendar = await service.GetCalendarAsync(url);
             
                 foreach (var recurrence in calendar.RecurringItems)
                 {
