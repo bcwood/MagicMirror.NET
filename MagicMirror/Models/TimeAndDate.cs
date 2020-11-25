@@ -1,21 +1,17 @@
-using Microsoft.Extensions.Configuration;
 using System;
 
 namespace MagicMirror.Models
 {
     public class TimeAndDate
     {
-        private DateTime now = DateTime.Now;
-        private string timeFormat;
-        private string dateFormat;
+        public readonly string TimeFormatted;
+        public readonly string DateFormatted;
 
-        public TimeAndDate(IConfiguration config)
+        public TimeAndDate(string timeFormat, string dateFormat)
         {
-            timeFormat = config["TimeAndDate:TimeFormat"];
-            dateFormat = config["TimeAndDate:DateFormat"];
+            var now = DateTime.Now;
+            TimeFormatted = now.ToString(timeFormat);
+            DateFormatted = now.ToString(dateFormat);
         }
-
-        public string TimeFormatted => now.ToString(timeFormat);
-        public string DateFormatted => now.ToString(dateFormat);
     }
 }

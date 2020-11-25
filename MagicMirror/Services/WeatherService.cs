@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MagicMirror.Models;
 
 namespace MagicMirror.Services
@@ -9,22 +8,18 @@ namespace MagicMirror.Services
     {
         private const string BASE_URL = "http://api.openweathermap.org/data/2.5";
         
-        private string apiKey;
-        private string latitude;
-        private string longitude;
-        private string units;
-
-        public WeatherService(IConfiguration config)
+        private string _apiKey;
+        private string _units;
+        
+        public WeatherService(string apiKey, string units)
         {
-            apiKey = config["Weather:ApiKey"];
-            latitude = config["Weather:Latitude"];
-            longitude = config["Weather:Longitude"];
-            units = config["Weather:Units"];
+            _apiKey = apiKey;
+            _units = units;
         }
 
-        public async Task<Weather> GetWeatherAsync()
+        public async Task<Weather> GetWeatherAsync(string latitude, string longitude)
         {
-            string endpointUrl = $"{BASE_URL}/onecall?lat={latitude}&lon={longitude}&units={units}&exclude=minutely,hourly,alerts&appid={apiKey}";
+            string endpointUrl = $"{BASE_URL}/onecall?lat={latitude}&lon={longitude}&units={_units}&exclude=minutely,hourly,alerts&appid={_apiKey}";
             return await ApiClient.GetAsync<Weather>(endpointUrl);
         }
     }
