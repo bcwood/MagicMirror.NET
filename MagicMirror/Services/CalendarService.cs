@@ -1,22 +1,30 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Ical.Net;
 
 namespace MagicMirror.Services
 {
     public class CalendarService
     {
-        private string calendarUrl;
+        private string[] calendarUrls;
 
         public CalendarService(IConfiguration config)
         {
-            calendarUrl = config["Calendar:Url"];
+            calendarUrls = config.GetSection("Calendars").Get<string[]>();
         }
 
-        public async Task<Calendar> GetCalendarAsync()
+        public async Task<List<Calendar>> GetCalendarsAsync()
         {
-            var response = await ApiClient.GetRawAsync(calendarUrl, null);
-            return Calendar.Load(response);
+            var calendars = new List<Calendar>();
+
+            foreach (string url in calendarUrls)
+            {
+                var response = await ApiClient.GetRawAsync(url, null);
+                calendars.Add(Calendar.Load(response));
+            }
+
+            return calendars;
         }
     }
 }

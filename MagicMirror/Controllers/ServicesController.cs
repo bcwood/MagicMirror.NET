@@ -45,42 +45,45 @@ namespace MagicMirror.Controllers
         public IActionResult Calendar()
         {
             var service = new CalendarService(configuration);
-            var ical = service.GetCalendarAsync().Result;
+            var calendars = service.GetCalendarsAsync().Result;
 
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now.AddDays(7);
 
             var events = new List<CalendarItem>();
 
-            foreach (var recurrence in ical.RecurringItems)
+            foreach (var calendar in calendars)
             {
-                foreach (var occurrence in recurrence.GetOccurrences(startDate, endDate))
+                foreach (var recurrence in calendar.RecurringItems)
                 {
-                    var calendarEvent = occurrence.Source as CalendarEvent;
-
-                    foreach (var eventOccurrence in calendarEvent.GetOccurrences(startDate, endDate))
+                    foreach (var occurrence in recurrence.GetOccurrences(startDate, endDate))
                     {
-                        var subEvent = eventOccurrence.Source as CalendarEvent;
+                        var calendarEvent = occurrence.Source as CalendarEvent;
 
-                        events.Add(new CalendarItem
+                        foreach (var eventOccurrence in calendarEvent.GetOccurrences(startDate, endDate))
                         {
-                            Title = subEvent.Summary,
-                            StartDate = eventOccurrence.Period.StartTime.AsSystemLocal,
-                            EndDate = eventOccurrence.Period.EndTime.AsSystemLocal,
-                            IsAllDay = subEvent.IsAllDay
-                        });
+                            var subEvent = eventOccurrence.Source as CalendarEvent;
+
+                            events.Add(new CalendarItem
+                            {
+                                Title = subEvent.Summary,
+                                StartDate = eventOccurrence.Period.StartTime.AsSystemLocal,
+                                EndDate = eventOccurrence.Period.EndTime.AsSystemLocal,
+                                IsAllDay = subEvent.IsAllDay
+                            });
+                        }
                     }
                 }
             }
 
-            var calendar = new Calendar();
-            calendar.TodaysEvents = events.Where(e => e.StartDate.Date == DateTime.Today)
-                                          .ToList();
-            calendar.UpcomingEvents = events.Where(e => e.StartDate.Date != DateTime.Today)
-                                            .OrderBy(e => e.StartDate)
-                                            .ToList();
+            var viewModel = new Calendar();
+            viewModel.TodaysEvents = events.Where(e => e.StartDate.Date == DateTime.Today)
+                                           .ToList();
+            viewModel.UpcomingEvents = events.Where(e => e.StartDate.Date != DateTime.Today)
+                                             .OrderBy(e => e.StartDate)
+                                             .ToList();
 
-            return PartialView("_Calendar", calendar);
+            return PartialView("_Calendar", viewModel);
         }
     }
 }

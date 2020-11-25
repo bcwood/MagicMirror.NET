@@ -11,9 +11,9 @@
 					<i class="far fa-calendar"></i>
 					@if (!item.IsAllDay)
 					{
-						<span class="time">@item.StartDate.ToString("h:mm tt")</span>
+						<span class="time">@item.StartDate.ToString("h:mm tt")</span> @:&mdash;
 					}
-					&mdash; <span class="summary">@item.Title</span>
+					<span class="summary">@item.Title</span>
 				</li>
 			}
 
